@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 const routes = [
     {
         path: '/',
-        redirect: '/dashboard'
+        redirect: '/bestSellersCharts'
     }, {
         path: "/",
         name: "Home",
@@ -20,6 +20,45 @@ const routes = [
                 /* webpackChunkName: "dashboard" */
                 "../views/Dashboard.vue")
             }, {
+                path: "/bestSellersClass",
+                name: "bestSellersClassTable",
+                meta: {
+                    title: '类目操作'
+                },
+                component: () => import (
+                    /* webpackChunkName: "table" */
+                    "../views/BestSellersClass.vue")
+            }, {
+                path: "/bestSellersCharts",
+                name: "bestSellersCharts",
+                meta: {
+                    title: '品牌分析'
+                },
+                component: () => import (
+                    /* webpackChunkName: "table" */
+                    "../views/BestSellersBrandCharts.vue")
+
+            }, {
+                path: "/salesAndReviews",
+                name: "salesAndReviews",
+                meta: {
+                    title: '销量与评论数'
+                },
+                component: () => import (
+                    /* webpackChunkName: "table" */
+                    "../views/SalesAndReviews.vue")
+
+            },{
+                path: "/searchRecommend",
+                name: "searchRecommend",
+                meta: {
+                    title: '采词推荐系统'
+                },
+                component: () => import (
+                    /* webpackChunkName: "table" */
+                    "../views/searchRecommend.vue")
+
+            },{
                 path: "/table",
                 name: "basetable",
                 meta: {
@@ -140,7 +179,8 @@ router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | vue-manage-system`;
     const role = localStorage.getItem('ms_username');
     if (!role && to.path !== '/login') {
-        next('/login');
+        next()
+        // next('/login');
     } else if (to.meta.permission) {
         // 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
         role === 'admin'
